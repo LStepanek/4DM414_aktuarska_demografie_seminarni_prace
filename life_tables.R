@@ -492,6 +492,136 @@ print(xtable(printable_output,
 ## ----------------------------------------------------------------------------
 
 ###############################################################################
+
+## ukládám postupně projekce pravděpodobností úmrtí, počtů dožívajících,
+## délky života a generační úmrtnostní tabulky --------------------------------
+
+setwd(paste(mother_working_directory, "vystupy", sep = "/"))
+
+
+## specifikace tabule formou listu --------------------------------------------
+
+my_specification <- list(
+    "name" = c("my_generation_death_table",
+               "my_generation_alive_table",
+               "exact_life_lengths_table",
+               "generation_life_lengths_table"),
+    "digits" = c(6, 0, 2, 2),
+    "czech_name" = c("projece pravděpodobností úmrtí",
+                     "projekce počtu přežívajících",
+                     "střední délka života | věk",
+                     "střední délka života | generace")    
+)
+
+
+## vytvářím pracovní soubor ---------------------------------------------------
+
+life_tables <- createWorkbook()
+
+
+## vytvářím dva své styly - jednak tučné písmo, jednak písmo zarovnané
+## doprava v rámci buňky ------------------------------------------------------
+
+my_bold_style <- createStyle(textDecoration = "bold")
+right_halign_cells <- createStyle(halign = "right")
+
+
+## vytvářím sešity postupně pro čtyři tabulky ---------------------------------
+
+for(my_table_name in c(
+
+    "my_generation_death_table",
+    "my_generation_alive_table",
+    "exact_life_lengths_table",
+    "generation_life_lengths_table"
+    
+)){
+
+    ## inicializuji dataset ---------------------------------------------------
+
+    my_table <- get(my_table_name)
+
+    addWorksheet(
+        wb = life_tables,
+        sheetName = my_specification$czech_name[
+                        my_specification$name == my_table_name
+                    ]
+    )
+
+
+    ## ukládám do sešitu data -------------------------------------------------
+
+    writeData(
+        wb = life_tables,
+        sheet = my_specification$czech_name[
+                        my_specification$name == my_table_name
+                    ],
+        rowNames = TRUE,
+        colNames = TRUE,
+        x = format(
+                round(
+                    my_table,
+                    digits = my_specification$digits[
+                        my_specification$name == my_table_name
+                    ]
+                ),
+                nsmall = my_specification$digits[
+                        my_specification$name == my_table_name
+                ]
+            )
+    )
+
+
+    ## nastavuji automatickou šířku sloupce -----------------------------------
+     
+    setColWidths(
+        wb = life_tables,
+        sheet = my_specification$czech_name[
+                        my_specification$name == my_table_name
+                ],
+        cols = 1:dim(my_table)[2],
+        widths = "auto"
+    )
+    
+    
+    ## přidávám tučné písmo popiskům ------------------------------------------
+    
+    addStyle(
+        wb = life_tables,
+        sheet = my_specification$czech_name[
+                        my_specification$name == my_table_name
+                ],
+        style = my_bold_style,
+        rows = c(1:(dim(my_table)[1] + 1), rep(1, dim(my_table)[2])),
+        cols = c(rep(1, dim(my_table)[1] + 1), 2:(dim(my_table)[2] + 1))
+    )
+
+    addStyle(
+        wb = life_tables,
+        sheet = my_specification$czech_name[
+                        my_specification$name == my_table_name
+                ],
+        style = right_halign_cells,
+        rows = 2:(dim(my_table)[1] + 1),
+        cols = 2:(dim(my_table)[2] + 1),
+        gridExpand = TRUE
+    )
+
+}
+
+saveWorkbook(
+    wb = life_tables,
+    file = "projekce_a_umrtnostni_tabulky.xlsx",
+    overwrite = TRUE
+)
+
+
+setwd(mother_working_directory)
+
+
+## ----------------------------------------------------------------------------
+
+###############################################################################
 ###############################################################################
 ###############################################################################
 
