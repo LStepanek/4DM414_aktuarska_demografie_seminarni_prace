@@ -1,0 +1,64 @@
+﻿% loaduju některé balíčky -----------------------------------------------------
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{graphicx}
+\usepackage{tocloft}
+\usepackage{enumerate}
+\usepackage{eso-pic}
+\usepackage[czech]{babel}
+\usepackage{csquotes}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{float}
+\usepackage{bm}
+\usepackage{multicol}
+\usepackage{tcolorbox}
+\usepackage{tikz}
+\usepackage{adjustbox}
+\usepackage{makecell}
+\usepackage{caption}
+\usepackage[bottom]{footmisc}
+\usepackage{afterpage}
+\usepackage{rotating}
+
+
+% příkaz pro vložení prázdné stránky ------------------------------------------
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+    
+% handling pro správné číslování sekcí a subsekcí ve třídě "report" -----------
+\renewcommand\thesection{\arabic{section}}
+
+% číslování sekcí a subsekcí --------------------------------------------------
+\setcounter{secnumdepth}{5} 
+
+% české uvozovky --------------------------------------------------------------
+\DeclareQuoteAlias{german}{czech}
+\MakeOuterQuote{"}
+
+% přejmenovávám popisek obsahu na "Obsah" -------------------------------------
+\renewcommand{\contentsname}{Obsah}
+
+% přejmenovávám popisky obrázků na "Obr." -------------------------------------
+\renewcommand{\figurename}{Obr.}
+
+% přejmenovávám popisky tabulek na "Tab." -------------------------------------
+\renewcommand\tablename{Tab.}
+
+% upravuji formát obsahu ------------------------------------------------------
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+% prostor pro tvrzení a důkazy ------------------------------------------------
+\newtheorem{theorem}{Tvrzení}
+
+% definuji pokračování --------------------------------------------------------
+\DeclareCaptionFormat{cont}{#1 (pokračování)#2#3\par}
+
+% definuji arg min ------------------------------------------------------------
+\DeclareMathOperator*{\argmin}{arg\,min}
+

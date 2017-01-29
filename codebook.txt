@@ -1,0 +1,6 @@
+variable_full_name,variable_abbreviation,variable_czech_name
+Population on 1 January by age and sex,population,populace
+Live births by mother's age and newborn's sex,births,počet narozených
+Deaths by age and sex,deaths,počet zemřelých
+Main scenario - Life expectancy by age and sex,expectancies,projekce délky života
+Life table,life_tables,historické délky života

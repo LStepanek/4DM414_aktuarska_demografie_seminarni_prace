@@ -1,0 +1,3 @@
+ES   % zkratka zkoumané země, zde Španělsko (Espanol) // v kódu jako 'my_geo'
+M    % pohlaví zájmu, zde muži (males) // v kódu jako 'my_sex'
+2011 % počáteční rok, od kterého uvažujeme data // v kódu jako 'start_year'
